@@ -1,16 +1,32 @@
 package com.validation.validate;
 
-public abstract class Validator<T> {
+import android.view.View;
+
+public abstract class Validator<T extends View> implements ValidInterface {
 
     protected T view;
-    protected int errorMessageId;
     protected String errorMessage;
 
-    public Validator(T view, int errorMessageId) {
+    public Validator(T view, String errorMessage) {
         this.view = view;
-        this.errorMessageId = errorMessageId;
+        this.errorMessage = errorMessage;
     }
 
 
-    public abstract boolean isValid();
+    public T getView() {
+        return view;
+    }
+
+    public void setView(T view) {
+        this.view = view;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
 }

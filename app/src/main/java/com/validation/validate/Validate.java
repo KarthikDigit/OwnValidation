@@ -8,7 +8,12 @@ import java.util.Set;
 public class Validate {
 
     private List<Validator> validatorList = new ArrayList<>();
+    private ValidationErrorListener errorListener;
 
+    public Validate(ValidationErrorListener errorListener) {
+
+        this.errorListener = errorListener;
+    }
 
     public void addValidator(Validator editTextValidator) {
 
@@ -20,15 +25,34 @@ public class Validate {
 
         Set<Boolean> flags = new HashSet<Boolean>(validatorList.size());
 
+        List<Validator> validates = new ArrayList<>();
 
         for (Validator editTextValidator : validatorList
                 ) {
-            flags.add(editTextValidator.isValid());
+            editTextValidator.hideError();
+
+            boolean b = editTextValidator.validate();
+
+            if (!b) validates.add(editTextValidator);
+
+            flags.add(b);
+        }
+
+
+        if (errorListener != null && flags.contains(false)) {
+
+            errorListener.onError(validates);
         }
 
         return !flags.contains(false);
 
     }
 
+
+    public interface ValidationErrorListener {
+
+        void onError(List<Validator> validates);
+
+    }
 
 }
