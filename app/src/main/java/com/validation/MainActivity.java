@@ -14,8 +14,6 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.mobsandgeeks.saripaar.ValidationError;
-import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.adapter.ViewDataAdapter;
 import com.mobsandgeeks.saripaar.annotation.Checked;
 import com.mobsandgeeks.saripaar.annotation.Email;
@@ -23,10 +21,10 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.mobsandgeeks.saripaar.exception.ConversionException;
 import com.validation.jobscheduler.MyJobService;
-import com.validation.validate.EmailValid;
-import com.validation.validate.Range;
-import com.validation.validate.SpinnerValidate;
+import com.validation.validate.SpinnerValidation;
+import com.validation.validate.EmptyValidation;
 import com.validation.validate.Validate;
+import com.validation.validate.ValidationStrategy;
 
 import java.util.List;
 
@@ -172,16 +170,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        validate.addValidator(new EmailValid(email, "Please enter a valid email"));
-        validate.addValidator(new com.validation.validate.CheckBox(checkBox, "Please accept terms and conditions"));
-        validate.addValidator(new Range(name, "Please enter above 400"));
-        validate.addValidator(new SpinnerValidate(mySpinner, "Please select aleast any one product  "));
+//        validate.addValidator(new EmailValid(email, "Please enter a valid email"));
+//        validate.addValidator(new com.validation.validate.CheckBox(checkBox, "Please accept terms and conditions"));
+//        validate.addValidator(new Range(name, "Please enter above 400"));
+//        validate.addValidator(new SpinnerValidate(mySpinner, "Please select aleast any one product  "));
 //
 //        validate.addValidator(new EditTextEmailValidator(email, R.string.error_email));
 //        validate.addValidator(new EditTextPasswordValidator(password, 6, R.string.error_password));
 //        validate.addValidator(new EditTextEmptylValidator(name, R.string.error_name_empty));
 //        validate.addValidator(new CheckBoxTrueValidator(checkBox, R.string.error_select_check_box));
 //
+
+
+        validate.addValidator(new EmptyValidation(password, "Password should not be empty", ValidationStrategy.NON_EMPTY));
+        validate.addValidator(new EmptyValidation(name, "Please enter above 400", ValidationStrategy.RANGE));
+        validate.addValidator(new EmptyValidation(email, "Please enter a valid email", ValidationStrategy.EMAIL));
+        validate.addValidator(new SpinnerValidation(mySpinner, "Please select aleast any one product", ValidationStrategy.SELECT));
+
+
         if (validate.validate()) {
 
             Toast.makeText(this, "Valid", Toast.LENGTH_SHORT).show();

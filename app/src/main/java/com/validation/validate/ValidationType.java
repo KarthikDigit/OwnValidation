@@ -4,6 +4,14 @@ public enum ValidationType {
 
     EMAIL,
 
+    NON_EMPTY,
+
+    RANGE,
+
+    CHECK,
+
+    SELECT,
+
     DATE_OF_BIRTH,
 
     CITY,

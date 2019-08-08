@@ -6,7 +6,9 @@ public abstract class EditTextValidatorTest<T extends TextInputLayout> extends V
 
 
     public EditTextValidatorTest(T view, String errorMessage) {
+
         super(view, errorMessage);
+
     }
 
     public String getText() {
