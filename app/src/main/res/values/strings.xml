@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyOwnValidation</string>
+    <string name="error_email">Please enter a valid email</string>
+    <string name="error_password">Password must be 6 digit</string>
+    <string name="error_name_empty">Name can not be empty</string>
+    <string name="error_select_check_box">Please select checkbox</string>
+</resources>
